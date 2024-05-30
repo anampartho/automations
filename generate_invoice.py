@@ -8,6 +8,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from dotenv import load_dotenv
 import numpy as np
+
+from invoice_generator.invoice import generate_invoice
 load_dotenv(verbose=True, override=True)
 
 # If modifying these scopes, delete the file token.json.
@@ -98,6 +100,9 @@ def main():
                                   valueInputOption="USER_ENTERED", body={"values": updateValues}).execute()
             print(f"{dateString} appended!")
             return
+
+        # Generate the Invoice
+        generate_invoice()
 
         print("Nothing to add!")
     except HttpError as err:
